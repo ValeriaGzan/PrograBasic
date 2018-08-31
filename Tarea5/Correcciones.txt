@@ -1,0 +1,59 @@
+1. using namespace std;
+2. No hay error
+3. No tiene salida y tiene más caracteres
+4. Tiene error en su salida
+5. Imprime a= 8 y b=24
+6. Imprime 15
+7. Imprime que a y b son igual a 6
+8. Imprime 1 o verdadero
+9. Imprime 0 o Falso
+10.Imprime i y r
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+void main () {
+int n;
+int num;
+
+if ( n >= 0 )
+{
+cout << "Tu numero" << n << "es positivo." << endl;
+}
+
+else
+{
+cout << "Tu numero" << n << "negativo." << endl;
+}
+
+cout << "Selecciona la opcion para aumentar tu variable" << endl;
+cout << "1 para incrementar 2" << endl;
+cout << "2 para incrementar 4" << endl;
+cout << "3 para incrementar 6" << endl;
+
+int x = 0;
+cin >> x;
+
+switch (x) {
+ case 1: 
+       num = n + 2;
+       break;
+
+ case 2: 
+       num = n + 4;
+       break;
+
+ case 3:
+       num = n + 6;
+       break;
+
+default:
+cout << "Error";
+
+}
+
+cout << "num";
+
+system ("pause"); 

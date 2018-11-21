@@ -20,7 +20,7 @@ struct datos {
 
 datos alumnos[100];
 int c = 0;
-int o, i;
+int o, i, a;
 int cant;
 int countAt, countDot, countNum;
 float califinal;
@@ -257,6 +257,7 @@ void mostrar() {
 
 		cout << "Calificacion Final:" << califinal << endl;
 
+
 		cout << "Direccion:" << alumnos[i].direccion << endl;
 
 		cout << "............................................................................................" << endl;
@@ -286,6 +287,11 @@ void buscar() {
 			cout << "Calificacion 1:" << alumnos[i].calif1 << endl;
 			cout << "Calificacion 2:" << alumnos[i].calif2 << endl;
 			cout << "Calificacion 3:" << alumnos[i].calif3 << endl;
+			califinal = (alumnos[i].calif1 * .30) + (alumnos[i].calif2 * .45) + (alumnos[i].calif3 * .25);
+			if (alumnos[i].calif1 == 0 || alumnos[i].calif2 == 0 || alumnos[i].calif3 == 0) {
+				califinal = 0;
+			}
+			cout << "Calificacion Final: " << califinal << endl;
 			cout << "Direccion:" << alumnos[i].direccion << endl << endl;
 			encontrado = true;
 			break;
@@ -297,6 +303,8 @@ void buscar() {
 	}
 
 	system("pause > nul");
+
+	a = o;
 
 	menu();
 }
@@ -343,14 +351,14 @@ void editar() {
 				cin.ignore();
 				system("cls");
 				cout << "Ingrese el Nombre Correcto: ";
-				getline(cin, alumnos[i].nombre);
+				getline(cin, alumnos[a].nombre);
 				break;
 	
 			case 2:
 				cin.ignore();
 				system("cls");
 				cout << "Ingresa el Apellido Correcto: ";
-				getline(cin, alumnos[i].apellido);
+				getline(cin, alumnos[a].apellido);
 				break;
 			case 3:
 				system("cls");
@@ -358,11 +366,11 @@ void editar() {
 				do {
 					matrivalidado = false;
 					cout << "Matricula : " << endl;
-					cin >> alumnos[c].matricula;
+					cin >> alumnos[a].matricula;
 					cin.ignore();
 
 					for (int j = 0; j < c; j++) {
-						if (alumnos[j].matricula == alumnos[c].matricula && j != c) {
+						if (alumnos[j].matricula == alumnos[a].matricula && j != a) {
 							cout << "Matricula existente. Ingresa una nueva" << endl;
 							matrivalidado = true;
 							break;
@@ -378,13 +386,13 @@ void editar() {
 					countAt = 0;
 					countDot = 0;
 					cout << "Correo : " << endl;
-					cin >> alumnos[c].correo;
-					for (int i = 0; alumnos[c].correo[i] != NULL; i++) {
+					cin >> alumnos[a].correo;
+					for (int i = 0; alumnos[a].correo[i] != NULL; i++) {
 
-						if (alumnos[c].correo[i] == 64) {
+						if (alumnos[a].correo[i] == 64) {
 							countAt++;
 						}
-						if (countAt == 1 && alumnos[c].correo[i] == '.') {
+						if (countAt == 1 && alumnos[a].correo[i] == '.') {
 							countDot++;
 						}
 					}
@@ -415,10 +423,10 @@ void editar() {
 				do {
 					countNum = 0;
 					cout << "Teléfono : " << endl;
-					cin >> alumnos[c].telefono;
-					for (i = 0; alumnos[c].telefono[i] != NULL; i++) {
+					cin >> alumnos[a].telefono;
+					for (i = 0; alumnos[a].telefono[i] != NULL; i++) {
 
-						if (alumnos[c].telefono[i] >= '0' && alumnos[c].telefono[i] <= '9') {
+						if (alumnos[a].telefono[i] >= '0' && alumnos[a].telefono[i] <= '9') {
 							countNum++;
 						}
 					}
@@ -442,9 +450,9 @@ void editar() {
 				califvalidado = false;
 				do {
 					countNum = 0;
-					cin >> alumnos[c].calif1;
+					cin >> alumnos[a].calif1;
 
-					if (alumnos[c].calif1 >= 0 && alumnos[c].calif1 <= 100) {
+					if (alumnos[a].calif1 >= 0 && alumnos[a].calif1 <= 100) {
 						califvalidado = true;
 					}
 
@@ -456,9 +464,9 @@ void editar() {
 				califvalidado = false;
 				do {
 					countNum = 0;
-					cin >> alumnos[c].calif2;
+					cin >> alumnos[a].calif2;
 
-					if (alumnos[c].calif2 >= 0 && alumnos[c].calif2 <= 100) {
+					if (alumnos[a].calif2 >= 0 && alumnos[a].calif2 <= 100) {
 						califvalidado = true;
 					}
 
@@ -470,41 +478,46 @@ void editar() {
 				califvalidado = false;
 				do {
 					countNum = 0;
-					cin >> alumnos[c].calif3;
+					cin >> alumnos[a].calif3;
 
-					if (alumnos[c].calif3 >= 0 && alumnos[c].calif3 <= 100) {
+					if (alumnos[a].calif3 >= 0 && alumnos[a].calif3 <= 100) {
 						califvalidado = true;
 					}
 
 				} while (califvalidado == false);
 				break;
 			case 9:
+				cin.ignore();
 				system("cls");
 				cout << "Ingresa la Direccion Correcta: ";
-				cout << "Ingresa la Calle: " << endl;
-				cin >> alumnos[i].direccion;
+				getline(cin, alumnos[i].direccion);
 				break;
+
 			default:
 				break;
 			}
 			system("cls");
 			if (o != 0) {
 				cout << "Tu registro ha sido actualizado: " << endl;
-				cout << "Nombre Completo: " << alumnos[i].nombre << " " << alumnos[i].apellido << endl;
-				cout << "Correo Electronico: " << alumnos[i].correo << endl;
-				cout << "Telefono:" << alumnos[i].telefono << endl;
-				cout << "Matricula:" << alumnos[i].matricula << endl;
-				cout << "Calificacion 1:" << alumnos[i].calif1 << endl;
-				cout << "Calificacion 2:" << alumnos[i].calif2 << endl;
-				cout << "Calificacion 3:" << alumnos[i].calif3 << endl;
-				cout << "Direccion:" << alumnos[i].direccion << endl;
+				cout << "Nombre Completo: " << alumnos[a].nombre << " " << alumnos[a].apellido << endl;
+				cout << "Correo Electronico: " << alumnos[a].correo << endl;
+				cout << "Telefono:" << alumnos[a].telefono << endl;
+				cout << "Matricula:" << alumnos[a].matricula << endl;
+				cout << "Calificacion 1:" << alumnos[a].calif1 << endl;
+				cout << "Calificacion 2:" << alumnos[a].calif2 << endl;
+				cout << "Calificacion 3:" << alumnos[a].calif3 << endl;
+				califinal = (alumnos[a].calif1 * .30) + (alumnos[a].calif2 * .45) + (alumnos[a].calif3 * .25);
+				if (alumnos[a].calif1 == 0 || alumnos[a].calif2 == 0 || alumnos[a].calif3 == 0) {
+					califinal = 0;
+				}
+				cout << "Calificacion Final: " << califinal << endl;
+				cout << "Direccion: " << alumnos[a].direccion << endl;
 
 			}
 			else {
 				cout << "No modificaste nada." << endl;
 			}
 		}
-		i++;
 
 		system("pause > nul");
 		menu();
@@ -531,6 +544,11 @@ void eliminar() {
 			cout << "Calificacion 1:" << alumnos[i].calif1 << endl;
 			cout << "Calificacion 2:" << alumnos[i].calif2 << endl;
 			cout << "Calificacion 3:" << alumnos[i].calif3 << endl;
+			califinal = (alumnos[i].calif1 * .30) + (alumnos[i].calif2 * .45) + (alumnos[i].calif3 * .25);
+			if (alumnos[i].calif1 == 0 || alumnos[i].calif2 == 0 || alumnos[i].calif3 == 0) {
+				califinal = 0;
+			}
+			cout << "Calificacion Final: " << califinal << endl;
 			cout << "Direccion:" << alumnos[i].direccion << endl;
 
 
@@ -579,7 +597,7 @@ void salir() {
 	archivo.close();
 
 	int si;
-	cout << "¿Desea borrar los alumnos que ya tiene registrados?\n1. si\n2. No" << endl;
+	cout << "¿Desea borrar los alumnos que ya tiene registrados?" << endl;
 	cout << "1. si "<< endl;
 	cout << "2. No" << endl;
 	cin >> si;
